@@ -4,8 +4,8 @@
         "src"
       ],
       "includePattern": ".js$",
-      "excludePattern": "(node_modules|docs)",
-      "exclude": ".ejs$, .spec.js$"
+      "excludePattern": "(node_modules|docs|views)",
+      "exclude": ".ejs$"
     },
     "plugins": [],
     "templates": {
