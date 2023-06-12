@@ -2,6 +2,11 @@ body{
     text-align: center;
 }
 
+#errMsj{
+    color: red;
+    font-size: small;
+}
+
 #Text{
     display: flex;
     justify-content: center;
