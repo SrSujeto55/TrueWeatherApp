@@ -3,19 +3,37 @@
  * controladores hacen de mediador entre estos 2 aspectos.
  */
 
-const {generateWeatherPack} = require('../js/WeatherReq');
+const WeatherActions = require('../js/WeatherReq');
 const cache = require('../js/cache');
 const Cache = new cache();
 
-
-let apikey = '';
-
 function root(req, res){
-    apikey = '';
     res.render('homePage');
 }
 
+async function postKey (req, res, next){
+    const key = req.body.key;
+    const { consultWeather } = WeatherActions;
+    let response = await consultWeather(19,-99,key);
+
+    if(response.cod && response.cod === 200){
+        res.send({'message':'this works'});
+    }else{
+        res.status(403).send({'error':'invalid ApiKey'});
+    }
+}
+
+function consultWeather(req, res){
+    res.render('consultWeather');
+}
+
+function getKeys(req, res){
+    res.send({'message':'working'});
+}
 
 module.exports = {
-    root
+    root,
+    postKey,
+    getKeys,
+    consultWeather
 }
