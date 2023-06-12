@@ -7,33 +7,38 @@ const WeatherActions = require('../js/WeatherReq');
 const cache = require('../js/cache');
 const Cache = new cache();
 
+var key = '';
+
 function root(req, res){
     res.render('homePage');
 }
 
 async function postKey (req, res, next){
-    const key = req.body.key;
+    const apikey = req.body.key;
     const { consultWeather } = WeatherActions;
-    let response = await consultWeather(19,-99,key);
+    let response = await consultWeather(19,-99,apikey);
 
     if(response.cod && response.cod === 200){
-        res.send({'message':'this works'});
+        key = apikey;
+        res.send({'message':'ok'});
     }else{
         res.status(403).send({'error':'invalid ApiKey'});
     }
 }
 
+function getKeys(req, res) {
+    res.send({'apikey':`${key}`});
+}
+
+
 function consultWeather(req, res){
     res.render('consultWeather');
 }
 
-function getKeys(req, res){
-    res.send({'message':'working'});
-}
 
 module.exports = {
     root,
     postKey,
-    getKeys,
-    consultWeather
+    consultWeather,
+    getKeys
 }
