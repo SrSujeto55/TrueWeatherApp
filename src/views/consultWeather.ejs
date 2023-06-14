@@ -43,8 +43,8 @@
                         if(data.cod != 400){
                             error.textContent = '';
                             temp.textContent = 'Temperature: ' + data.temp + '°';
-                            humidity.textContent = 'humidity: ' + data.humidity;
-                            wind.textContent = 'Wind: ' + data.wind + 'km/h';
+                            humidity.textContent = 'humidity: ' + data.humidity + '%';
+                            wind.textContent = 'Wind: ' + data.wind + 'm/s';
                             clouds.textContent = 'Clouds: ' + data.clouds + '%';
                             city.textContent = 'City: ' + data.cityName;
                         }else{

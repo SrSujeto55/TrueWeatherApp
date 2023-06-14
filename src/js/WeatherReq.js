@@ -10,7 +10,7 @@ const date = new Date();
  * @returns {Promise}
  */
 async function consultWeather(lat, long, apikey){
-   return fetch('https://api.openweathermap.org/data/2.5/weather?lat='+ lat +'&lon='+ long +'&appid=' + apikey)
+   return fetch('https://api.openweathermap.org/data/2.5/weather?lat='+ lat +'&lon='+ long +'&appid=' + apikey + '&units=metric')
    .then(response => response.json());
 }
 /**

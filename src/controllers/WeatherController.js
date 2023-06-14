@@ -53,7 +53,6 @@ async function requestWeather(req, res){
        res.send(weatherPack);
     }
     
-    // //todo you return a error statuscode
 }
 
 module.exports = {
