@@ -3,17 +3,27 @@
  * controladores hacen de mediador entre estos 2 aspectos.
  */
 
+const { raw } = require('body-parser');
 const WeatherActions = require('../js/WeatherReq');
 const cache = require('../js/cache');
 const Cache = new cache();
 
-var key = '';
+var key;
 
 function root(req, res){
     res.render('homePage');
 }
 
-async function postKey (req, res, next){
+function consultWeather(req, res){
+    if(!key){
+        res.redirect('/');
+        return;
+    }
+
+    res.render('consultWeather');
+}
+
+async function postKey (req, res){
     const apikey = req.body.key;
     const { consultWeather } = WeatherActions;
     let response = await consultWeather(19,-99,apikey);
@@ -26,19 +36,29 @@ async function postKey (req, res, next){
     }
 }
 
-function getKeys(req, res) {
-    res.send({'apikey':`${key}`});
+async function requestWeather(req, res){
+    if(!key){
+        res.redirect(200, '/');
+        return;
+    }
+
+    const rawCords = req.body.coordinates;
+    const coords = rawCords.split(" ");
+    const { generateWeatherPack } = WeatherActions;
+    
+    const weatherPack = await generateWeatherPack(coords[0], coords[1], '7753fd975ab98f5d1d730a4475ef23d6');
+    if(weatherPack.cod != 400){
+       res.send(weatherPack); 
+    }else{
+       res.send(weatherPack);
+    }
+    
+    // //todo you return a error statuscode
 }
-
-
-function consultWeather(req, res){
-    res.render('consultWeather');
-}
-
 
 module.exports = {
     root,
     postKey,
     consultWeather,
-    getKeys
+    requestWeather
 }

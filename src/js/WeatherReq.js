@@ -9,7 +9,7 @@ const date = new Date();
  * @param {String} apikey 
  * @returns {Promise}
  */
-function consultWeather(lat, long, apikey){
+async function consultWeather(lat, long, apikey){
    return fetch('https://api.openweathermap.org/data/2.5/weather?lat='+ lat +'&lon='+ long +'&appid=' + apikey)
    .then(response => response.json());
 }
@@ -24,16 +24,21 @@ function consultWeather(lat, long, apikey){
 async function generateWeatherPack(lat, long, apikey){
     let weatherPack = {};
     const request = await consultWeather(lat, long, apikey);
-    weatherPack['temp'] = request.main.temp;
-    weatherPack['humidity'] = request.main.humidity;
-    weatherPack['clouds'] = request.clouds.all;
-    weatherPack['wind'] = request.wind.speed;
-    weatherPack['cityName'] = request.name;
-    weatherPack['reqHour'] = date.getHours();
-    weatherPack['reqMin'] = date.getMinutes();
-
-    return weatherPack;
+    if(request.cod != 400){
+        weatherPack['cod'] = 200;
+        weatherPack['temp'] = request.main.temp;
+        weatherPack['humidity'] = request.main.humidity;
+        weatherPack['clouds'] = request.clouds.all;
+        weatherPack['wind'] = request.wind.speed;
+        weatherPack['cityName'] = request.name;
+        weatherPack['reqHour'] = date.getHours();
+        weatherPack['reqMin'] = date.getMinutes();
+        return weatherPack;
+    }else{
+        return {'cod':400, 'error':'Something is wrong with the coords'}
+    }
 }
+
 
 
 module.exports = {generateWeatherPack, consultWeather};
