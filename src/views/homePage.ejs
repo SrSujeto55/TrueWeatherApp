@@ -18,6 +18,7 @@
             const formLogin = document.querySelector('#form');
             formLogin.addEventListener('submit', e => {
                 e.preventDefault();
+                
                 const formData = new FormData(formLogin);
 
                 fetch('/setkey', {
@@ -25,8 +26,6 @@
                     body: formData
                 })
 
-                // .then(response => response.json())
-                // .then(data => console.log(data));
                 .then(response => {
                     if (!response.ok){
                         const errMsj = document.querySelector('#errMsj');

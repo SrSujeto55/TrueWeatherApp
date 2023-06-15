@@ -6,6 +6,10 @@ const mainRoutes = require('../routers/mainRouter');
 
 app.set('PORT', 3000);
 
+app.use((req, res, next) => {
+	console.log(`${req.url} - ${req.method}`);
+	next();
+});
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
