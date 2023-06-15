@@ -7,12 +7,14 @@ const { raw } = require('body-parser');
 const WeatherActions = require('../js/WeatherReq');
 const cache = require('../js/cache');
 const Cache = new cache();
-
 var key;
+
+    // Funciones controladores para las rutas
 
 function root(req, res){
     res.render('homePage');
 }
+
 
 function consultWeather(req, res){
     if(!key){
@@ -22,6 +24,7 @@ function consultWeather(req, res){
 
     res.render('consultWeather');
 }
+
 
 async function postKey (req, res){
     const apikey = req.body.key;
@@ -36,6 +39,7 @@ async function postKey (req, res){
     }
 }
 
+
 async function requestWeather(req, res){
     if(!key){
         res.redirect(200, '/');
@@ -44,16 +48,49 @@ async function requestWeather(req, res){
 
     const rawCords = req.body.coordinates;
     const coords = rawCords.split(" ");
+    const coordKey = createCacheKey(rawCords);
+    let weatherPack;
+
+    if(Cache.isOnCache(coordKey)){
+        if(Cache.isOlderRegister(coordKey)){
+            weatherPack = await getWeatherPack(coords[0], coords[1], key);
+            Cache.updateWeatherPack(coordKey, weatherPack);
+            res.send(weatherPack);
+            return;
+        }else{
+            weatherPack = Cache.getWeatherPack(coordKey);
+            res.send(weatherPack);
+            return; 
+        }
+    }
+
+    weatherPack = await getWeatherPack(coords[0], coords[1], key);
+    if(weatherPack.cod != 400){
+        Cache.addToCache(coordKey, weatherPack);
+        res.send(weatherPack); 
+    }else{
+        res.send(weatherPack); //mandamos codigo de error dentro de "weatherPack"
+    }
+}
+
+
+
+     // funciones auxiliares 
+async function getWeatherPack(lat, long, key){
     const { generateWeatherPack } = WeatherActions;
     
-    const weatherPack = await generateWeatherPack(coords[0], coords[1], '7753fd975ab98f5d1d730a4475ef23d6');
-    if(weatherPack.cod != 400){
-       res.send(weatherPack); 
-    }else{
-       res.send(weatherPack);
-    }
-    
+    weatherPack = await generateWeatherPack(lat, long, key);
+    return weatherPack;
 }
+
+
+function createCacheKey(rawCords){
+    let cacheKey = rawCords.replaceAll('.','');
+    cacheKey = cacheKey.replaceAll(' ','');
+    cacheKey = cacheKey.replaceAll('-','');
+    return cacheKey;
+}
+
 
 module.exports = {
     root,

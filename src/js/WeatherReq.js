@@ -1,5 +1,4 @@
 const fetch = require ('node-fetch');
-const date = new Date();
 
 /**
  * Makes the request to the api from OpenWeather and returns a response in json 
@@ -31,8 +30,9 @@ async function generateWeatherPack(lat, long, apikey){
         weatherPack['clouds'] = request.clouds.all;
         weatherPack['wind'] = request.wind.speed;
         weatherPack['cityName'] = request.name;
-        weatherPack['reqHour'] = date.getHours();
-        weatherPack['reqMin'] = date.getMinutes();
+        const date = new Date();
+        weatherPack['time'] = {'hour': `${date.getHours()}`, 
+                                'minute':`${date.getMinutes()}`}
         return weatherPack;
     }else{
         return {'cod':400, 'error':'Something is wrong with the coords'}

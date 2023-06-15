@@ -5,36 +5,35 @@
 class cache{
     #cache = {};
 
-        // todo change the parameter iatacode for something that uses latitude and longitude
     /**
      * Checks if the coords are already in the cache.
-     * @param {} iatacode 
+     * @param {} coordKey 
      * @returns a boolean telling if the <> is already in the cache
      */
-    isOnCache(iatacode){
-        return (this.#cache[iatacode] != undefined) && isOlderRegister();
+    isOnCache(coordKey){
+        return (this.#cache[coordKey] != undefined);
     }
 
     /**
      * Adds to the cache a new entry, wich has a <> and weatherPack.
-     * @param {*} iatacode 
+     * @param {*} coordKey 
      * @param {object} weatherPack
      */
-    addToCache(iatacode, weatherPack){
-        this.#cache[iatacode] = weatherPack;
+    addToCache(coordKey, weatherPack){
+        this.#cache[coordKey] = weatherPack;
     }
 
     /**
      * Gives you the current WeatherPack contained in the coods defined by parameter.
      * if the coords are not in the cache, then returns an error insthead.
-     * @param {*} iataCode 
+     * @param {*} coordKey 
      * @returns {object}
      */
-    getWeatherPack(iataCode){
-        if(!this.isOnCache(iataCode)){
-            console.error('Iata code not found inside of the cache');
+    getWeatherPack(coordKey){
+        if(!this.isOnCache(coordKey)){
+            console.error('Error trying to get a coordKey wich is not in the cache');
         }else{
-            return this.#cache[iataCode];
+            return this.#cache[coordKey];
         }
     }
 
@@ -48,18 +47,27 @@ class cache{
     /**
      * Updates the entry specified in the parameters with the new
      * WeatherPack also especified in the parameters.
-     * @param {*} iatacode 
+     * @param {*} coordKey 
      * @param {object} newWeatherPack 
      */
-    updateWeatherPack(iatacode, newWeatherPack){
-        if(!this.isOnCache(iatacode)){
-            console.error('Iata code not found inside of the cache');
+    updateWeatherPack(coordKey, newWeatherPack){
+        if(!this.isOnCache(coordKey)){
+            console.error('Error trying to update a coordKey wich is not in the cache');
         }else{
-            this.#cache[iatacode] = newWeatherPack;
+            this.#cache[coordKey] = newWeatherPack;
         }
     }
 
-    //todo create a new method called isOldeerRegister to check if the weather pack has a time older than 5 minutes.
+    isOlderRegister(coordKey){
+        const weatherpack = this.getWeatherPack(coordKey);
+        return this.checkTime(weatherpack.time, 5)
+    }
+
+    checkTime(time, lapse){
+        const date = new Date();
+        return (date.getHours() != time.hour) || (date.getMinutes < time.minute) || (date.getMinutes() - time.minute >= lapse)
+    }
+ 
     //todo create a new security step to prevent for making more than 60 calls with the api.
 }
 
