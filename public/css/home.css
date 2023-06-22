@@ -1,18 +1,122 @@
+*{padding:0; margin:0;}
+
 body{
+    font-family: 'Poppins', sans-serif;
     text-align: center;
+    background: rgb(34,193,195);
+    background: linear-gradient(242deg, rgba(34,193,195,1) 11%, rgba(253,187,45,1) 100%);
+}
+
+#TRUE{
+    color: #00477A;
+    text-decoration: underline;
+}
+#Title{
+    font-size: 2.5em;
+    color: #00243D;
+}
+
+#GetYourApi{
+    position: absolute;
+    bottom: 0;
+}
+
+a{
+    color:#F06305;
+}
+
+a:visited{
+    color: #0C4767;
 }
 
 #errMsj{
-    color: red;
-    font-size: small;
+    
+    color: #FF4242;
+    font-size: 1em;
+    margin-bottom: 2em;
 }
 
-#Text{
+#apiKey{
+    text-align: center;
+    width: 90vw;
+    height: 1.5em;
+    background-color: #B9F18C;
+    border: 2px solid #B9F18C;
+    font-size: 2em;
+    border-radius: 5px;
+    color: #004346;
+}
+
+#apiKey::placeholder{
+    text-align: center;
+    font-weight: bold;
+    color: #004346;
+    opacity: 30%;
+}
+
+#ApiText{
+    color: #172A3A;
+}
+
+#container{
+    position: relative;
     display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
     justify-content: center;
-    align-items:center;
-    
-    padding: 2em;
-    border: 2px dotted blue;
-    background-color: aquamarine;
+    align-items: center;
+}
+
+#OpenWeatherLogo{
+    position: absolute;
+    right: -4.5em;
+    top: -1em;
+    scale: 0.3;
+}
+
+.SendButton{
+    margin-top: 2em;
+    width: 30%;
+    height: 3em;
+    background-color: #B9F18C;
+    border: 3px solid #0C4546;
+    border-radius: 4px;
+    font-size: 1em;
+    font-family: inherit;
+    transition: border 0.2s ease-out 100ms, 
+    text-shadow 0.2s ease-out 100ms,
+    color 0.2s ease-out 100ms;
+}
+
+.SendButton:hover{
+    border: 3px solid #DA4167;
+    text-shadow: 0px 3px 6px #661429;
+    color: #881B36;
+}
+
+@media screen and (min-width: 1024px) {
+    #apiKey{
+        width: 920px;
+    }
+
+    .SendButton:hover{
+        border: 3px solid #6290C8;
+        text-shadow: 0px 3px 6px #0F5657;
+        color: #0C4546;
+    }
+}
+
+@media screen and (min-width: 768px) {
+
+    #OpenWeatherLogo{
+        top:auto;
+        left: -2em;
+        bottom: 0;
+        scale: 0.5;
+    }
+
+    #ApiText{
+        font-size: 1.5em;
+    }
 }

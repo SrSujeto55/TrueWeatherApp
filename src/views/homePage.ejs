@@ -4,40 +4,28 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;800&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../../public/css/home.css">
-        <title>WeatherApp</title>
+        <title> <WeatherApp> </title>
     </head>
     <body>
-        <h1 id="errMsj"></h1>
-        <form id="form">
-            <input type="text" id="apiKey" name="key" placeholder="apikey"><br>
-            <button type="submit">Submit</button>
-        </form>
 
-        <script type="text/javascript">
-            const formLogin = document.querySelector('#form');
-            formLogin.addEventListener('submit', e => {
-                e.preventDefault();
-                
-                const formData = new FormData(formLogin);
+        <div id="container">
+            <h1 id="Title"><span id="TRUE">TRUE</span> WeatherApp<h1>
+            <h1 id="errMsj"></h1>
 
-                fetch('/setkey', {
-                    method: 'POST',
-                    body: formData
-                })
+            <form id="ApiForm">
+                <input type="text" id="apiKey" name="key" placeholder="Apikey" maxlength="32" autocomplete="off"><br>
+                <label for="apiKey" id="ApiText">Introduce your OpenWeather Map Api Key </label><br>
+                <button type="submit" class="SendButton">Submit</button>
+            </form>
+                <img src="../../public/images/OpenWeatherLogo.png" id="OpenWeatherLogo">
+                <p id="GetYourApi">Don't have an api key? Get yours <a href="https://openweathermap.org/price" target="_blank">here</a> </p>
+        </div>
 
-                .then(response => {
-                    if (!response.ok){
-                        const errMsj = document.querySelector('#errMsj');
-                        errMsj.textContent = 'Llave api invalida, intente de nuevo';
-                    }else{
-                        window.location.replace('http://localhost:3000/consult');
-                    }
-                })
-            })
-            
-
-        </script>
+        <script src="../../public/js/homePage.js" type="text/javascript"></script>
         
     </body>
 </html>
