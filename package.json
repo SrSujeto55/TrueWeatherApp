@@ -5,7 +5,9 @@
   "description": "An upgradede version of the Weather App",
   "main": "index.js",
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "start": "node src/js/server",
+    "dev": "nodemon src/js/server"
   },
   "repository": {
     "type": "git",
