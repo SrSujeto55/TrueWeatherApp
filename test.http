@@ -1,6 +1,0 @@
-post http://localhost:3000/test HTTP/1.1
-content-type: application/json
-
-{
-    "apikey": "7753fd975ab98f5d1d730a4475ef23d6"
-}
