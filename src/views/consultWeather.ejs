@@ -10,7 +10,6 @@
         <title>< Consult ></title>
     </head>
     <body>
-        <p>animation</p>
         <div id="CoordContainer">
             <p id="MsjErr"></p>
             <form id="coordForm">
@@ -21,25 +20,46 @@
         </div>
 
         <div id="WeatherInfoContainer">
-            <div id="temp" class="card">
-                <h3 class="italic"> Temperature</h3>
-                <h1>28°c</h1>
+            <div id="tempCard" class="card">
+                <div class="front" >
+                    <h1></h1>
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Temperature</h3>
+                    <h1 id="temp"></h1>
+                </div>
             </div>
-            <div id="humidity" class="card">
-                <h3 class="italic"> humidity</h3>
-                <h1>23%</h1>
+
+            <div id="humidityCard" class="card">
+                <div class="front" >
+                    <h1></h1>
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> humidity</h3>
+                    <h1 id="humidity"></h1>
+                </div>
             </div>
-            <div id="wind" class="card">
-                <h3 class="italic"> Wind</h3>
-                <h1>2m/s</h1>
+            <div id="windCard" class="card">
+                <div class="front" >
+                    <h1></h1>
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Wind</h3>
+                    <h1 id="wind"></h1>
+                </div>
             </div>
-            <div id="clouds" class="card">
-                <h3 class="italic"> Clouds</h3>
-                <h1>100%</h1>
+            <div id="cloudsCard" class="card">
+                <div class="front" >
+                    <h1></h1>
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Clouds</h3>
+                    <h1 id="clouds"></h1>
+                </div>
             </div>
 
             <div id="cityname" class="wrapper">
-                <h1>naucalpan</h1>
+                <h1></h1>
             </div>
         </div>
 

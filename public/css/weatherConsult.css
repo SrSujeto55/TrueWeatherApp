@@ -48,28 +48,60 @@ body{
 }
 
 .card{
-    transform: perspective(600px) rotateY(180deg);
     display: flex;
+    position: relative;
     flex-direction: column;
     height: 100%;
     width: 100%;
     justify-content: center;    
     align-items: center;
-    border: 2px solid blue;
-    border-radius: 7%;
     font-size: 1.5em;
-    background-color: pink;
     transition: .1s, background-position 0s;
 }
 
-.card:hover{
-    color: #fff;
-    scale: 1.2;
+.card div {
+    position: absolute;
+    border: 2px solid blue;
+    border-radius: 7%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backface-visibility: hidden;
+    transition: .1s
 }
 
-.card.flip{
-    transform: perspective(600px) rotateY(360deg);
+.card .front{
+    background-color:#0C4546;
+    transform: perspective(500px) rotateY(0deg);
+} 
+
+.card .back{
+    background-color:#B9F18C;
+    transform: perspective(500px) rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+} 
+
+
+.card .flipFront{
+    animation: flipF 1s normal forwards;
 }
+.card .flipBack{
+    animation: flipB 1s normal forwards;
+}
+
+@keyframes flipF {
+    from {transform: rotateY(0deg);}
+    to {transform: rotateY(180deg);}
+}
+
+@keyframes flipB {
+    from {transform: rotateY(180deg);}
+    to {transform: rotateY(360deg);}
+}
+
 
 
 .italic{
@@ -99,19 +131,19 @@ body{
 }
 
 
-#temp{
+#tempCard{
     grid-column: 1 / 2;
     grid-row: 2 / 3;
 }
-#humidity{
+#humidityCard{
     grid-column: 2 / 3;
     grid-row: 2 / 3;
 }
-#clouds{
+#cloudsCard{
     grid-column: 3 / 4;
     grid-row: 2 / 3;
 }
-#wind{
+#windCard{
     grid-column: 4 / 5;
     grid-row: 2 / 3;
 }
@@ -149,19 +181,4 @@ body{
     align-items: center;
 }
 
-/* p {
-    animation-duration: 3s;
-    animation-name: slidein;
-  }
-  
-  @keyframes slidein {
-    from {
-      margin-left: 100%;
-      width: 300%;
-    }
-  
-    to {
-      margin-left: 0%;
-      width: 100%;
-    }
-  } */
+

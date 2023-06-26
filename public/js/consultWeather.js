@@ -1,12 +1,17 @@
 const error = document.querySelector('#MsjErr');
 const form = document.querySelector('#coordForm');
 
+const tempCard = document.querySelector('#tempCard');
+const humidityCard = document.querySelector('#humidityCard');
+const windCard = document.querySelector('#windCard');
+const cloudsCard = document.querySelector('#cloudsCard');
+
 const temp = document.querySelector('#temp');
 const humidity = document.querySelector('#humidity');
 const wind = document.querySelector('#wind');
 const clouds = document.querySelector('#clouds');
-const city = document.querySelector('#cityname');
 
+const city = document.querySelector('#cityname');
 const button = document.querySelector('#reqButton');
 
 form.addEventListener('submit', e => {
@@ -22,29 +27,35 @@ form.addEventListener('submit', e => {
     {
         if(data.cod != 400){
             error.textContent = '';
-            temp.lastElementChild.textContent = data.temp + '°';
-            humidity.lastElementChild.textContent = data.humidity + '%';
-            wind.lastElementChild.textContent = data.wind + 'm/s';
-            clouds.lastElementChild.textContent = data.clouds + '%';
+
+            temp.textContent = data.temp + '°C';
+            humidity.textContent = data.humidity + '%';
+            wind.textContent = data.wind + 'm/s';
+            clouds.textContent = data.clouds + '%';
             city.lastElementChild.textContent = data.cityName;
+            flipCards();
         }else{
             error.textContent = 'Coordenadas incorrectas, intente de nuevo';
         }
     });
 });
 
-button.addEventListener('click', () => {
-    temp.classList.add('flip');
+function flipCards(){
+    tempCard.firstElementChild.classList.add('flipFront');
+    tempCard.lastElementChild.classList.add('flipBack');
+
     setTimeout(() => {
-        humidity.classList.add('flip');
+        humidityCard.firstElementChild.classList.add('flipFront');
+        humidityCard.lastElementChild.classList.add('flipBack');
     }, 200);
     setTimeout(() => {
-        clouds.classList.add('flip');
+        cloudsCard.firstElementChild.classList.add('flipFront');
+        cloudsCard.lastElementChild.classList.add('flipBack');
     }, 400);
     setTimeout(() => {
-        wind.classList.add('flip');
+        windCard.firstElementChild.classList.add('flipFront');
+        windCard.lastElementChild.classList.add('flipBack');
     }, 600);
-
-})
-
+    
+}
 
