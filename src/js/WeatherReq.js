@@ -39,6 +39,4 @@ async function generateWeatherPack(lat, long, apikey){
     }
 }
 
-
-
 module.exports = {generateWeatherPack, consultWeather};
