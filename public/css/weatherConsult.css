@@ -201,3 +201,91 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+
+@media screen and (max-width: 1280px){
+    #WeatherInfoContainer{
+        height: 70vh;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 5em 1fr 1fr;
+        grid-template-areas: 
+          "title title"
+          "temp humidity"
+          "wind clouds";
+        gap: 2em 3em;
+    }
+
+    #tempCard{
+        grid-area: temp;
+    }
+    #humidityCard{
+        grid-area: humidity;
+    }
+    #windCard{
+        grid-area: wind;
+    }
+    #cloudsCard{
+        grid-area: clouds;
+    }
+
+    #cityname{
+        grid-area:title;
+    }
+
+    #coordinates{
+        width: 20vw;
+    }
+    #coordinates:focus{
+        width: 40vw;
+    }
+
+    .sendButton{
+        width: 20vw;
+    }
+
+    .card div {
+        border-radius: 15px;
+    }
+    
+    .OpenImage{
+        width: 20vw;
+        height: 20vh;
+    }
+
+    #MsjErr{
+        color: #FF4242;
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width: 567px){
+    #WeatherInfoContainer{
+        gap: 2em 1em;
+    }
+
+    .back{
+        font-size: 0.7em;
+    }
+
+    .holdable:hover{
+        scale: 1;
+        rotate: 0deg;
+    }
+
+    @keyframes extendTitle {
+        0% {width: 10%}
+        100% {width: 90%;}
+    }
+
+    #coordinates{
+        width: 30vw;
+    }
+    #coordinates:focus{
+        width: 50vw;
+    }
+
+    .sendButton{
+        width: 30vw;
+    }
+}
+
