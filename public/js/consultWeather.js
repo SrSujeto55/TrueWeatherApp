@@ -14,6 +14,8 @@ const clouds = document.querySelector('#clouds');
 const city = document.querySelector('#cityname');
 const button = document.querySelector('#reqButton');
 
+let initialCunter = true;
+
 form.addEventListener('submit', e => {
     e.preventDefault();
 
@@ -32,8 +34,15 @@ form.addEventListener('submit', e => {
             humidity.textContent = data.humidity + '%';
             wind.textContent = data.wind + 'm/s';
             clouds.textContent = data.clouds + '%';
-            city.lastElementChild.textContent = data.cityName;
-            flipCards();
+            if(initialCunter){
+                flipCards();
+                city.lastElementChild.textContent = data.cityName;
+                extendTitle();
+            }else{
+                city.lastElementChild.textContent = data.cityName;
+            }
+            
+            initialCunter = false;
         }else{
             error.textContent = 'Coordenadas incorrectas, intente de nuevo';
         }
@@ -41,21 +50,29 @@ form.addEventListener('submit', e => {
 });
 
 function flipCards(){
+
     tempCard.firstElementChild.classList.add('flipFront');
     tempCard.lastElementChild.classList.add('flipBack');
+    tempCard.lastElementChild.classList.add('holdable');
 
     setTimeout(() => {
         humidityCard.firstElementChild.classList.add('flipFront');
         humidityCard.lastElementChild.classList.add('flipBack');
+        humidityCard.lastElementChild.classList.add('holdable');
     }, 200);
     setTimeout(() => {
         cloudsCard.firstElementChild.classList.add('flipFront');
         cloudsCard.lastElementChild.classList.add('flipBack');
+        cloudsCard.lastElementChild.classList.add('holdable');
     }, 400);
     setTimeout(() => {
         windCard.firstElementChild.classList.add('flipFront');
         windCard.lastElementChild.classList.add('flipBack');
+        windCard.lastElementChild.classList.add('holdable');
     }, 600);
     
 }
 
+function extendTitle(){
+    city.classList.add('wrapper');
+}
