@@ -1,7 +1,5 @@
 const formLogin = document.querySelector('#ApiForm');
 
-console.log('Al menos si se ejecuta esto');
-
 formLogin.addEventListener('submit', e => {
     e.preventDefault();
     

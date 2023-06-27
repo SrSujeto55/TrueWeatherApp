@@ -3,25 +3,66 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/x-icon" href="../../public/images/TWeatherLogo.ico" />
         <link rel="stylesheet" href="../../public/css/weatherConsult.css">
-        <title>consutl</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;800&display=swap" rel="stylesheet">
+        <title>< Consult ></title>
     </head>
     <body>
-        <p id="MsjErr"></p>
-        <form id="coordForm">
-            <label for="coordinates">Coordinates</label>
-            <input type="text" name="coordinates" id="coordinates" placeholder="40.22 -74.99">
-            <button type="submit">Request</button>
-        </form>
-            <div id="WeatherInfo">
-                <h1 id="temp"> Temperature: </h1>
-                <h1 id="humidity"> humidity: </h1>
-                <h1 id="wind"> Wind: </h1>
-                <h1 id="clouds"> Clouds: </h1>
-                <h1 id="cityname"> City: </h1> 
+        <div id="CoordContainer">
+            <p id="MsjErr"></p>
+            <form id="coordForm">
+                <label for="coordinates" id="CoordText">Coordinates</label>
+                <input type="text" name="coordinates" id="coordinates" placeholder="40.22 -76.99" autocomplete="off">
+                <button type="submit" class="sendButton" id="reqButton">Request</button>
+            </form>
+        </div>
+
+        <div id="WeatherInfoContainer">
+            <div id="tempCard" class="card">
+                <div class="front" >
+                    <img src="../../public/images/openweather.svg" class="OpenImage">
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Temperature</h3>
+                    <h1 id="temp"></h1>
+                </div>
             </div>
 
-            <script type="text/javascript" src="../../public/js/consultWeather.js"></script>
-        </form>
+            <div id="humidityCard" class="card">
+                <div class="front" >
+                    <img src="../../public/images/openweather.svg" class="OpenImage">
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> humidity</h3>
+                    <h1 id="humidity"></h1>
+                </div>
+            </div>
+            <div id="windCard" class="card">
+                <div class="front" >
+                    <img src="../../public/images/openweather.svg" class="OpenImage">
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Wind</h3>
+                    <h1 id="wind"></h1>
+                </div>
+            </div>
+            <div id="cloudsCard" class="card">
+                <div class="front" >
+                    <img src="../../public/images/openweather.svg" class="OpenImage" >
+                </div>
+                <div class="back" >
+                    <h3 class="italic"> Clouds</h3>
+                    <h1 id="clouds"></h1>
+                </div>
+            </div>
+
+            <div id="cityname">
+                <h1></h1>
+            </div>
+        </div>
+        <script type="text/javascript" src="../../public/js/consultWeather.js"></script>
     </body>
 </html>
