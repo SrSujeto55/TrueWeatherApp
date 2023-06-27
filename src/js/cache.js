@@ -7,7 +7,7 @@ class cache{
 
     /**
      * Checks if the coords are already in the cache.
-     * @param {} coordKey 
+     * @param {String} coordKey 
      * @returns a boolean telling if the <> is already in the cache
      */
     isOnCache(coordKey){
@@ -16,7 +16,7 @@ class cache{
 
     /**
      * Adds to the cache a new entry, wich has a <> and weatherPack.
-     * @param {*} coordKey 
+     * @param {String} coordKey 
      * @param {object} weatherPack
      */
     addToCache(coordKey, weatherPack){
@@ -26,7 +26,7 @@ class cache{
     /**
      * Gives you the current WeatherPack contained in the coods defined by parameter.
      * if the coords are not in the cache, then returns an error insthead.
-     * @param {*} coordKey 
+     * @param {String} coordKey 
      * @returns {object}
      */
     getWeatherPack(coordKey){
@@ -47,7 +47,7 @@ class cache{
     /**
      * Updates the entry specified in the parameters with the new
      * WeatherPack also especified in the parameters.
-     * @param {*} coordKey 
+     * @param {String} coordKey 
      * @param {object} newWeatherPack 
      */
     updateWeatherPack(coordKey, newWeatherPack){
@@ -58,17 +58,27 @@ class cache{
         }
     }
 
+    /**
+     * Checks if a register associate to a CoordKey is older than 5 minutes
+     * @param {String} coordKey 
+     * @returns {boolean} 
+     */
     isOlderRegister(coordKey){
         const weatherpack = this.getWeatherPack(coordKey);
         return this.checkTime(weatherpack.time, 5)
     }
 
+    /**
+     * 
+     * @param {Date} time 
+     * @param {Int} lapse 
+     * @returns {boolean}
+     */
     checkTime(time, lapse){
         const date = new Date();
         return (date.getHours() != time.hour) || (date.getMinutes < time.minute) || (date.getMinutes() - time.minute >= lapse)
     }
  
-    //todo create a new security step to prevent for making more than 60 calls with the api.
 }
 
 module.exports = cache;

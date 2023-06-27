@@ -44,7 +44,7 @@ form.addEventListener('submit', e => {
             
             initialCunter = false;
         }else{
-            error.textContent = 'Coordenadas incorrectas, intente de nuevo';
+            error.textContent = 'Wrong coordinates, try again';
         }
     });
 });

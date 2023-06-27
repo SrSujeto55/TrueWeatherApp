@@ -9,13 +9,18 @@ const cache = require('../js/cache');
 const Cache = new cache();
 var key;
 
-    // Funciones controladores para las rutas
-
+    // Controllers
+/**
+ * Function to render the home page to the user by one GET method
+ */
 function root(req, res){
     res.render('homePage');
 }
 
-
+/**
+ * function to render the ConsultWeather View, if no key is loaded, it redirect the user
+ * to the home page
+ */
 function consultWeather(req, res){
     if(!key){
         res.redirect('/');
@@ -25,7 +30,10 @@ function consultWeather(req, res){
     res.render('consultWeather');
 }
 
-
+/**
+ * Function to set the ApiKey to the server
+ * It uses a call to the OpenWeather api to check if the apiKey provided is useful or not
+ */
 async function postKey (req, res){
     const apikey = req.body.key;
     const { consultWeather } = WeatherActions;
@@ -39,7 +47,11 @@ async function postKey (req, res){
     }
 }
 
-
+/**
+ * This is the main function of the program, it get the coordinates provided by the user an then it converts
+ * the coordinates to a coordKey to check if the coordKey is alredy defined in the cache, if it is, then we just return the 
+ * weatherPack asociate to that coordKey, if not, then we make an api call to OpenWeatherMap, afterwards we create a new cache entry with this coordKey.
+ */
 async function requestWeather(req, res){
     if(!key){
         res.redirect(200, '/');
@@ -69,13 +81,21 @@ async function requestWeather(req, res){
         Cache.addToCache(coordKey, weatherPack);
         res.send(weatherPack); 
     }else{
-        res.send(weatherPack); //mandamos codigo de error dentro de "weatherPack"
+        res.send(weatherPack); //We send the error code to the client
     }
 }
 
 
 
-     // funciones auxiliares 
+// Auxiliar functions 
+
+/**
+ * function to get a weatherPack by calling the OpenWeather api
+ * @param {int} lat 
+ * @param {int} long 
+ * @param {string} key 
+ * @returns {object}
+ */
 async function getWeatherPack(lat, long, key){
     const { generateWeatherPack } = WeatherActions;
     
@@ -83,7 +103,11 @@ async function getWeatherPack(lat, long, key){
     return weatherPack;
 }
 
-
+/**
+ * Function to convert a raw text of coordinates and convert it to a coordKey sintaxys
+ * @param {string} rawCords 
+ * @returns {string}
+ */
 function createCacheKey(rawCords){
     let cacheKey = rawCords.replaceAll('.','');
     cacheKey = cacheKey.replaceAll(' ','');
